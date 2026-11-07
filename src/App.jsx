@@ -3,16 +3,9 @@ import { fetchMovieDetails, searchMovies } from "./api/omdb";
 import { MovieCard } from "./components/MovieCard";
 import "./App.css";
 
-const API_KEY_STORAGE = "omdb_api_key";
+// Ключ OMDb API задан в коде — в интерфейсе его вводить не нужно
+const OMDB_API_KEY = "6a3da0e0";
 const HISTORY_STORAGE = "omdb_history";
-
-function readStorage(key) {
-    try {
-        return localStorage.getItem(key) || "";
-    } catch {
-        return "";
-    }
-}
 
 function readHistory() {
     try {
@@ -26,7 +19,7 @@ function readHistory() {
 
 function translateApiError(message = "") {
     if (/invalid api key/i.test(message)) {
-        return "Неверный API-ключ OMDb. Проверьте ключ и попробуйте снова.";
+        return "OMDb отклонил ключ доступа. Возможно, ключ ещё не активирован — проверьте письмо от OMDb.";
     }
     if (/request limit/i.test(message)) {
         return "Превышен дневной лимит запросов OMDb. Попробуйте завтра.";
@@ -40,13 +33,6 @@ function translateApiError(message = "") {
 const EXAMPLES = ["Matrix", "Inception", "Interstellar"];
 
 function App() {
-    // --- Ключ API ---
-    const [apiKey, setApiKey] = useState(
-        () => import.meta.env.VITE_OMDB_API_KEY || readStorage(API_KEY_STORAGE),
-    );
-    const [keyDraft, setKeyDraft] = useState("");
-    const [keyPanelOpen, setKeyPanelOpen] = useState(false);
-
     // --- Состояния поиска ---
     const [query, setQuery] = useState("");
     const [lastQuery, setLastQuery] = useState("");
@@ -92,28 +78,7 @@ function App() {
         });
     };
 
-    const saveKey = (event) => {
-        event.preventDefault();
-        const value = keyDraft.trim();
-
-        if (!value) return;
-
-        setApiKey(value);
-        setKeyDraft("");
-        setKeyPanelOpen(false);
-        try {
-            localStorage.setItem(API_KEY_STORAGE, value);
-        } catch {
-            // ignore
-        }
-    };
-
     const runSearch = async (searchQuery, targetPage = 1) => {
-        if (!apiKey) {
-            setKeyPanelOpen(true);
-            return;
-        }
-
         abortRef.current?.abort();
         const controller = new AbortController();
         abortRef.current = controller;
@@ -128,7 +93,7 @@ function App() {
             const data = await searchMovies({
                 query: searchQuery,
                 page: targetPage,
-                apiKey,
+                apiKey: OMDB_API_KEY,
                 signal: controller.signal,
             });
 
@@ -187,7 +152,7 @@ function App() {
 
     // --- Подгрузка описаний для текущей страницы ---
     useEffect(() => {
-        if (!apiKey || movies.length === 0) return;
+        if (movies.length === 0) return;
 
         const controller = new AbortController();
 
@@ -196,7 +161,7 @@ function App() {
 
             fetchMovieDetails({
                 id: movie.imdbID,
-                apiKey,
+                apiKey: OMDB_API_KEY,
                 signal: controller.signal,
             })
                 .then((data) => {
@@ -213,7 +178,7 @@ function App() {
         });
 
         return () => controller.abort();
-    }, [movies, apiKey]);
+    }, [movies]);
 
     // --- Фильтр по году (на клиенте, для текущей страницы) ---
     const fromYear = yearFrom ? Number(yearFrom) : null;
@@ -243,59 +208,6 @@ function App() {
                 </p>
             </header>
 
-            {!apiKey || keyPanelOpen ? (
-                <form className="key-panel" onSubmit={saveKey}>
-                    <h2 className="key-panel__title">Ключ OMDb API</h2>
-                    <p className="key-panel__text">
-                        Бесплатный ключ выдаётся на{" "}
-                        <a
-                            href="https://www.omdbapi.com/apikey.aspx"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            omdbapi.com
-                        </a>
-                        . Ключ сохраняется только в вашем браузере.
-                    </p>
-                    <div className="key-panel__row">
-                        <input
-                            type="text"
-                            className="key-panel__input"
-                            value={keyDraft}
-                            onChange={(event) => setKeyDraft(event.target.value)}
-                            placeholder="Вставьте ключ, например 1a2b3c4d"
-                            aria-label="Ключ OMDb API"
-                        />
-                        <button type="submit" className="btn btn--primary">
-                            Сохранить
-                        </button>
-                        {apiKey && (
-                            <button
-                                type="button"
-                                className="btn btn--ghost"
-                                onClick={() => setKeyPanelOpen(false)}
-                            >
-                                Отмена
-                            </button>
-                        )}
-                    </div>
-                </form>
-            ) : (
-                <div className="key-hint">
-                    <span>Ключ OMDb API подключён.</span>
-                    <button
-                        type="button"
-                        className="link-button"
-                        onClick={() => {
-                            setKeyDraft(apiKey);
-                            setKeyPanelOpen(true);
-                        }}
-                    >
-                        Сменить ключ
-                    </button>
-                </div>
-            )}
-
             <form className="search" onSubmit={handleSubmit} role="search">
                 <input
                     type="search"
@@ -308,7 +220,7 @@ function App() {
                 <button
                     type="submit"
                     className="btn btn--primary search__button"
-                    disabled={status === "loading" || !apiKey}
+                    disabled={status === "loading"}
                 >
                     {status === "loading" ? "Ищем…" : "Найти"}
                 </button>

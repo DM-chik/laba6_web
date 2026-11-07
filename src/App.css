@@ -66,62 +66,6 @@
     cursor: pointer;
 }
 
-/* --- Панель ключа --- */
-.key-panel {
-    margin-bottom: 20px;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.07);
-}
-
-.key-panel__title {
-    font-size: 18px;
-    margin-bottom: 6px;
-    color: #101828;
-}
-
-.key-panel__text {
-    margin-bottom: 14px;
-    font-size: 14px;
-    color: #667085;
-    line-height: 1.5;
-}
-
-.key-panel__text a {
-    color: #e11d48;
-}
-
-.key-panel__row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.key-panel__input {
-    flex: 1 1 260px;
-    padding: 11px 14px;
-    font-size: 15px;
-    border: 2px solid #d0d5dd;
-    border-radius: 8px;
-    outline: none;
-}
-
-.key-panel__input:focus {
-    border-color: #e11d48;
-    box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12);
-}
-
-.key-hint {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-    font-size: 13px;
-    color: #667085;
-}
-
 /* --- Поиск --- */
 .search {
     display: flex;
