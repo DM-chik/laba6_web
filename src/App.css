@@ -1,0 +1,365 @@
+.app {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 20px 72px;
+}
+
+.app__header {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.app__title {
+    font-size: 32px;
+    line-height: 1.2;
+    color: #101828;
+}
+
+.app__subtitle {
+    margin-top: 8px;
+    color: #667085;
+    font-size: 15px;
+}
+
+/* --- Кнопки --- */
+.btn {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.btn--primary {
+    padding: 12px 22px;
+    background: #e11d48;
+    color: #ffffff;
+}
+
+.btn--primary:hover:not(:disabled) {
+    background: #be123c;
+}
+
+.btn--ghost {
+    padding: 10px 16px;
+    background: #f2f4f7;
+    color: #344054;
+}
+
+.btn--ghost:hover:not(:disabled) {
+    background: #e4e7ec;
+}
+
+.link-button {
+    border: none;
+    background: none;
+    padding: 0;
+    color: #e11d48;
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* --- Панель ключа --- */
+.key-panel {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.07);
+}
+
+.key-panel__title {
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: #101828;
+}
+
+.key-panel__text {
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #667085;
+    line-height: 1.5;
+}
+
+.key-panel__text a {
+    color: #e11d48;
+}
+
+.key-panel__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.key-panel__input {
+    flex: 1 1 260px;
+    padding: 11px 14px;
+    font-size: 15px;
+    border: 2px solid #d0d5dd;
+    border-radius: 8px;
+    outline: none;
+}
+
+.key-panel__input:focus {
+    border-color: #e11d48;
+    box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12);
+}
+
+.key-hint {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #667085;
+}
+
+/* --- Поиск --- */
+.search {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.search__input {
+    flex: 1;
+    padding: 13px 18px;
+    font-size: 16px;
+    border: 2px solid #d0d5dd;
+    border-radius: 10px;
+    background: #ffffff;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search__input:focus {
+    border-color: #e11d48;
+    box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12);
+}
+
+.search__button {
+    padding: 13px 30px;
+}
+
+/* --- Подсказка --- */
+.hint {
+    padding: 40px 20px;
+    text-align: center;
+    color: #667085;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+}
+
+.hint__examples {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.hint__chip {
+    padding: 7px 14px;
+    border: 1px solid #d0d5dd;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #344054;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.hint__chip:hover {
+    border-color: #e11d48;
+    color: #be123c;
+    background: #fff1f2;
+}
+
+/* --- Сетка фильмов --- */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 20px;
+}
+
+/* --- Скелетоны --- */
+.skeleton-card {
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+.skeleton-card__poster {
+    aspect-ratio: 2 / 3;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.skeleton-card__line {
+    height: 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.skeleton-card__line--short {
+    width: 55%;
+}
+
+.skeleton-card__poster,
+.skeleton-card__line {
+    background: linear-gradient(90deg, #eef1f6 25%, #f7f9fc 50%, #eef1f6 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+    from {
+        background-position: 200% 0;
+    }
+    to {
+        background-position: -200% 0;
+    }
+}
+
+/* --- Сообщения --- */
+.message {
+    padding: 44px 24px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+}
+
+.message h2 {
+    margin-bottom: 8px;
+    font-size: 20px;
+    color: #101828;
+}
+
+.message p {
+    margin-bottom: 16px;
+    color: #667085;
+}
+
+.message--error h2 {
+    color: #b42318;
+}
+
+.message--error p {
+    color: #b42318;
+}
+
+/* --- Результаты --- */
+.results__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.results__count {
+    font-size: 15px;
+    color: #475467;
+}
+
+.results__count strong {
+    color: #101828;
+}
+
+.year-filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.year-filter__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    color: #667085;
+}
+
+.year-filter__field input {
+    width: 90px;
+    padding: 7px 9px;
+    font-size: 14px;
+    border: 1px solid #d0d5dd;
+    border-radius: 7px;
+    outline: none;
+}
+
+.year-filter__field input:focus {
+    border-color: #e11d48;
+}
+
+.year-filter__error {
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: #e11d48;
+}
+
+/* --- Пагинация --- */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 28px;
+}
+
+.pagination__info {
+    font-size: 14px;
+    color: #667085;
+}
+
+/* --- История --- */
+.history {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #e4e7ec;
+}
+
+.history__title {
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #475467;
+}
+
+.history__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* --- Адаптив --- */
+@media (max-width: 560px) {
+    .search {
+        flex-direction: column;
+    }
+
+    .search__button {
+        width: 100%;
+    }
+
+    .results__bar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+}
